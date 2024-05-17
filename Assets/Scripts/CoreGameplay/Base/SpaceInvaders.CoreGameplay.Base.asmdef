@@ -1,0 +1,16 @@
+{
+    "name": "SpaceInvaders.CoreGameplay.Base",
+    "rootNamespace": "SpaceInvaders.CoreGameplay.Base",
+    "references": [
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

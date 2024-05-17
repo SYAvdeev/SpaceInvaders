@@ -1,0 +1,21 @@
+{
+    "name": "SpaceInvaders.CoreGameplay.Bullet",
+    "rootNamespace": "SpaceInvaders.CoreGameplay.Bullet",
+    "references": [
+        "SpaceInvaders.CoreGameplay",
+        "SpaceInvaders.CoreGameplay.Base",
+        "SpaceInvaders.Utility",
+        "SpaceInvaders.AssetsSpawn",
+        "Zenject",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

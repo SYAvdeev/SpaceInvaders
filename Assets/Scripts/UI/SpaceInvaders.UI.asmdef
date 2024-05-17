@@ -1,0 +1,19 @@
+{
+    "name": "SpaceInvaders.UI",
+    "rootNamespace": "SpaceInvaders.UI",
+    "references": [
+        "SpaceInvaders.Utility",
+        "UniTask",
+        "Unity.TextMeshPro",
+        "Zenject"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
