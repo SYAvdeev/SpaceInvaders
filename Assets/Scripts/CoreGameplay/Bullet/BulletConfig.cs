@@ -1,11 +1,6 @@
-﻿using UnityEngine;
+﻿using SpaceInvaders.CoreGameplay.Base.Spawnable;
 
 namespace SpaceInvaders.CoreGameplay.Bullet
 {
-    public class BulletConfig : ScriptableObject
-    {
-        [SerializeField] private BulletData _initialData;
-        
-        public BulletData InitialData => _initialData;
-    }
+    public class BulletConfig : SpawnableConfigBase<BulletData> { }
 }

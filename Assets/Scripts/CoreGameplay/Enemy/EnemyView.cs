@@ -1,4 +1,4 @@
-﻿namespace CoreGameplay.Enemy
+﻿namespace SpaceInvaders.CoreGameplay.Enemy
 {
     public class EnemyView
     {

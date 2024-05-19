@@ -5,30 +5,30 @@ using UnityEngine;
 
 namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
 {
-    public class BulletSpawnController : IDisposable
+    public class BulletsSpawnController : IDisposable
     {
-        private readonly BulletSpawnView _bulletSpawnView;
-        private readonly BulletSpawnModel _bulletSpawnModel;
+        private readonly BulletsSpawnView _bulletsSpawnView;
+        private readonly BulletsSpawnModel _bulletsSpawnModel;
         private readonly IAssetsSpawnService _assetsSpawnService;
         private readonly BulletPresenterFactory _bulletPresenterFactory;
 
         private readonly Dictionary<BulletModel, BulletView> _bulletViews = new();
 
-        public BulletSpawnController(BulletSpawnView bulletSpawnView, BulletSpawnModel bulletSpawnModel, IAssetsSpawnService assetsSpawnService, BulletPresenterFactory bulletPresenterFactory)
+        public BulletsSpawnController(BulletsSpawnView bulletsSpawnView, BulletsSpawnModel bulletsSpawnModel, IAssetsSpawnService assetsSpawnService, BulletPresenterFactory bulletPresenterFactory)
         {
-            _bulletSpawnView = bulletSpawnView;
-            _bulletSpawnModel = bulletSpawnModel;
+            _bulletsSpawnView = bulletsSpawnView;
+            _bulletsSpawnModel = bulletsSpawnModel;
             _assetsSpawnService = assetsSpawnService;
             _bulletPresenterFactory = bulletPresenterFactory;
         }
 
         public void Initialize()
         {
-            _bulletSpawnModel.BulletAdded += BulletSpawnModelOnBulletAdded;
-            _bulletSpawnModel.BulletRemoved += BulletSpawnModelOnBulletRemoved;
+            _bulletsSpawnModel.BulletAdded += BulletsSpawnModelOnBulletsAdded;
+            _bulletsSpawnModel.BulletRemoved += BulletsSpawnModelOnBulletsRemoved;
         }
 
-        private async void BulletSpawnModelOnBulletAdded(BulletModel bulletModel)
+        private async void BulletsSpawnModelOnBulletsAdded(BulletModel bulletModel)
         {
             if (!_bulletViews.TryGetValue(bulletModel, out BulletView bulletView))
             {
@@ -36,7 +36,7 @@ namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
                     bulletModel.BulletData.ID,
                     bulletModel.BulletData.MovableData.Position,
                     Quaternion.identity,
-                    _bulletSpawnView.BulletsParent);
+                    _bulletsSpawnView.BulletsParent);
 
                 BulletPresenter bulletPresenter = _bulletPresenterFactory.Create(bulletModel, bulletView);
                 bulletView.Initialize(bulletPresenter);
@@ -45,21 +45,21 @@ namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
             }
             else
             {
-                bulletView.Transform.SetParent(_bulletSpawnView.BulletsParent);
+                bulletView.Transform.SetParent(_bulletsSpawnView.BulletsParent);
             }
             
             bulletModel.SpawnableModel.FireSpawnedEvent();
         }
         
-        private void BulletSpawnModelOnBulletRemoved(BulletModel bulletModel)
+        private void BulletsSpawnModelOnBulletsRemoved(BulletModel bulletModel)
         {
-            _bulletViews[bulletModel].Transform.SetParent(_bulletSpawnView.BulletsParent);
+            _bulletViews[bulletModel].Transform.SetParent(_bulletsSpawnView.BulletsParent);
         }
 
         public void Dispose()
         {
-            _bulletSpawnModel.BulletAdded -= BulletSpawnModelOnBulletAdded;
-            _bulletSpawnModel.BulletRemoved -= BulletSpawnModelOnBulletRemoved;
+            _bulletsSpawnModel.BulletAdded -= BulletsSpawnModelOnBulletsAdded;
+            _bulletsSpawnModel.BulletRemoved -= BulletsSpawnModelOnBulletsRemoved;
         }
     }
 }

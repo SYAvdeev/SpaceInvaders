@@ -2,11 +2,12 @@
 using SpaceInvaders.CoreGameplay.Base.Movable;
 using SpaceInvaders.CoreGameplay.Base.Spawnable;
 
-namespace SpaceInvaders.CoreGameplay.Bullet
+namespace SpaceInvaders.CoreGameplay.Enemy
 {
     [Serializable]
-    public class BulletData : SpawnableDataBase
+    public class EnemyData : SpawnableDataBase
     {
+        public string BulletID;
         public MovableData MovableData;
     }
 }

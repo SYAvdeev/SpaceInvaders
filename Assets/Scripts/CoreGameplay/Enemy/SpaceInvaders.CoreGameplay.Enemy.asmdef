@@ -1,3 +1,17 @@
-﻿{
-  "name": "SpaceInvaders.CoreGameplay.Enemy"
+{
+    "name": "SpaceInvaders.CoreGameplay.Enemy",
+    "rootNamespace": "SpaceInvaders.CoreGameplay.Enemy",
+    "references": [
+        "SpaceInvaders.CoreGameplay.Base",
+        "SpaceInvaders.CoreGameplay.Bullet"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

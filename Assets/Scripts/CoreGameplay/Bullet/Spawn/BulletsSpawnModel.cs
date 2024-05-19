@@ -4,7 +4,7 @@ using SpaceInvaders.Utility;
 
 namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
 {
-    public class BulletSpawnModel
+    public class BulletsSpawnModel
     {
         internal Pool<string, BulletModel> BulletsPool { get; } = new();
         internal List<BulletModel> CurrentBullets { get; } = new();

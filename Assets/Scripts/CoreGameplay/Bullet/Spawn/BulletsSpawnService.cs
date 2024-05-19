@@ -7,41 +7,49 @@ namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
     public class BulletsSpawnService  : IDisposable
     {
         private readonly BulletModelFactory _bulletModelFactory;
-        private readonly BulletSpawnModel _bulletSpawnModel;
+        private readonly BulletsSpawnModel _bulletsSpawnModel;
+        private readonly BulletsCollectionConfig _bulletsCollectionConfig;
 
-        public BulletsSpawnService(BulletModelFactory bulletModelFactory, BulletSpawnModel bulletSpawnModel)
+        public BulletsSpawnService(BulletModelFactory bulletModelFactory, BulletsSpawnModel bulletsSpawnModel, BulletsCollectionConfig bulletsCollectionConfig)
         {
             _bulletModelFactory = bulletModelFactory;
-            _bulletSpawnModel = bulletSpawnModel;
+            _bulletsSpawnModel = bulletsSpawnModel;
+            _bulletsCollectionConfig = bulletsCollectionConfig;
         }
 
-        public void Spawn(BulletConfig bulletConfig, Vector2 position, Vector2 direction)
+        public void Spawn(string bulletID, Vector2 position, Vector2 direction)
         {
-            if(_bulletSpawnModel.BulletsPool.TryGet(bulletConfig.InitialData.ID, out BulletModel bulletModel))
+            if(_bulletsSpawnModel.BulletsPool.TryGet(bulletID, out BulletModel bulletModel))
             {
-                bulletModel = _bulletModelFactory.Create(bulletConfig);
-                bulletModel.BulletData.MovableData.Position = position;
-                bulletModel.BulletData.MovableData.DirectionNormalized = direction;
-                
+                if (_bulletsCollectionConfig.GetByID(bulletID, out BulletConfig bulletConfig))
+                {
+                    bulletModel = _bulletModelFactory.Create(bulletConfig);
+                    bulletModel.BulletData.MovableData.Position = position;
+                    bulletModel.BulletData.MovableData.DirectionNormalized = direction;
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
             }
             
             bulletModel.SpawnableModel.AddedToPool += SpawnableModelOnAddedToPool;
-            _bulletSpawnModel.CurrentBullets.Add(bulletModel);
-            _bulletSpawnModel.FireBulletAddedEvent(bulletModel);
+            _bulletsSpawnModel.CurrentBullets.Add(bulletModel);
+            _bulletsSpawnModel.FireBulletAddedEvent(bulletModel);
         }
 
         private void SpawnableModelOnAddedToPool(SpawnableModel spawnableModel)
         {
-            BulletModel bulletModel = _bulletSpawnModel.CurrentBullets.Find(b => b.SpawnableModel == spawnableModel);
-            _bulletSpawnModel.CurrentBullets.Remove(bulletModel);
-            _bulletSpawnModel.BulletsPool.Add(bulletModel.BulletData.ID, bulletModel);
-            _bulletSpawnModel.FireBulletRemovedEvent(bulletModel);
+            BulletModel bulletModel = _bulletsSpawnModel.CurrentBullets.Find(b => b.SpawnableModel == spawnableModel);
+            _bulletsSpawnModel.CurrentBullets.Remove(bulletModel);
+            _bulletsSpawnModel.BulletsPool.Add(bulletModel.BulletData.ID, bulletModel);
+            _bulletsSpawnModel.FireBulletRemovedEvent(bulletModel);
             bulletModel.SpawnableModel.AddedToPool -= SpawnableModelOnAddedToPool;
         }
 
         public void Dispose()
         {
-            foreach (BulletModel bulletModel in _bulletSpawnModel.CurrentBullets)
+            foreach (BulletModel bulletModel in _bulletsSpawnModel.CurrentBullets)
             {
                 bulletModel.SpawnableModel.AddedToPool -= SpawnableModelOnAddedToPool;
             }

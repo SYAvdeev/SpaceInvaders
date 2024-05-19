@@ -2,7 +2,7 @@
 
 namespace SpaceInvaders.CoreGameplay.Bullet.Spawn
 {
-    public class BulletSpawnView : MonoBehaviour
+    public class BulletsSpawnView : MonoBehaviour
     {
         [SerializeField] private Transform _bulletsParent;
         [SerializeField] private Transform _bulletsPoolParent;
