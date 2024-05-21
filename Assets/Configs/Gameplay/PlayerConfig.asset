@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133a9d9553224321b801a5b219a34215, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  _playerSpawnID: 
+  _playerSpawnID: Player
