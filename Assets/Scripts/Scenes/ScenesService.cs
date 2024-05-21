@@ -25,9 +25,9 @@ namespace SpaceInvaders.Scenes.Scenes
             await SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
         }
         
-        public async UniTask LoadLobbyScene(bool unloadCurrentScene = true)
+        public async UniTask LoadGameplayScene(bool unloadCurrentScene = true)
         {
-            await LoadScene(_scenesConfig.LobbySceneIndex, unloadCurrentScene);
+            await LoadScene(_scenesConfig.GameplaySceneIndex, unloadCurrentScene);
         }
     }
 }

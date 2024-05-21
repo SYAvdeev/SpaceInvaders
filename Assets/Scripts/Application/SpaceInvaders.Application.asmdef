@@ -1,0 +1,19 @@
+{
+    "name": "SpaceInvaders.Application",
+    "rootNamespace": "SpaceInvaders.Application",
+    "references": [
+        "Zenject",
+        "SpaceInvaders.AssetsSpawn",
+        "SpaceInvaders.Utility",
+        "SpaceInvaders.Scenes"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

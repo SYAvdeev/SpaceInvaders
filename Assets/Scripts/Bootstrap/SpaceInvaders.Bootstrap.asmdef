@@ -2,8 +2,12 @@
     "name": "SpaceInvaders.Bootstrap",
     "rootNamespace": "SpaceInvaders.Bootstrap",
     "references": [
-        "VContainer",
-        "UniTask"
+        "Zenject",
+        "UniTask",
+        "SpaceInvaders.UI",
+        "SpaceInvaders.AssetsSpawn",
+        "SpaceInvaders.Utility",
+        "SpaceInvaders.Scenes"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

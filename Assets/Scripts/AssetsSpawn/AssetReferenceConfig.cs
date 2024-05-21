@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 
 namespace SpaceInvaders.AssetsSpawn
 {
-    [CreateAssetMenu(fileName ="AssetReferenceConfig", menuName = "Assets/Config/Asset Reference Config", order = 0)]
+    [CreateAssetMenu(fileName = nameof(AssetReferenceConfig), menuName = "Custom/Assets/" + nameof(AssetReferenceConfig), order = 0)]
     public class AssetReferenceConfig : ScriptableObject
     {
         [SerializeField]

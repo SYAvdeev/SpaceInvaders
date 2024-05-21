@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using SpaceInvaders.AssetsSpawn;
 using Zenject;
 
 namespace SpaceInvaders.UI.UI
@@ -9,14 +10,14 @@ namespace SpaceInvaders.UI.UI
         private readonly UIModel _uiModel;
         private readonly UIConfig _uiConfig;
         private readonly UIViewRoot _uiViewRoot;
-        private readonly IInstantiator _instantiator;
+        private readonly IGameObjectsFactory _gameObjectsFactory;
 
-        public UIService(UIModel uiModel, UIConfig uiConfig, UIViewRoot uiViewRoot, IInstantiator instantiator)
+        public UIService(UIModel uiModel, UIConfig uiConfig, UIViewRoot uiViewRoot, IGameObjectsFactory gameObjectsFactory)
         {
             _uiModel = uiModel;
             _uiConfig = uiConfig;
             _uiViewRoot = uiViewRoot;
-            _instantiator = instantiator;
+            _gameObjectsFactory = gameObjectsFactory;
         }
 
         public async UniTask<TScreen> ShowScreen<TScreen>(
@@ -33,7 +34,7 @@ namespace SpaceInvaders.UI.UI
             if (!_uiModel.ScreenPool.TryGet(screenName, out IUIScreen screen))
             {
                 TScreen screenPrefab = _uiConfig.GetUIPrefabByType<TScreen>();
-                screen = _instantiator.InstantiatePrefab(screenPrefab, _uiViewRoot.UIViewsParent).GetComponent<TScreen>();
+                screen = _gameObjectsFactory.Instantiate(screenPrefab.gameObject, _uiViewRoot.UIViewsParent).GetComponent<TScreen>();
                 initializeCallback?.Invoke((TScreen)screen);
             }
 

@@ -2,7 +2,9 @@
 
 namespace SpaceInvaders.CoreGameplay.Base.Spawnable
 {
-    public class SpawnableModelFactory : PlaceholderFactory<SpawnableModel>
+    public class SpawnableModelFactory<TData, TModel> : PlaceholderFactory<TData, TModel>
+        where TData : SpawnableData
+        where TModel : SpawnableModel
     {
         
     }

@@ -5,7 +5,8 @@
         "SpaceInvaders.Utility",
         "UniTask",
         "Unity.TextMeshPro",
-        "Zenject"
+        "Zenject",
+        "SpaceInvaders.AssetsSpawn"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,47 +1,33 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using SpaceInvaders.CoreGameplay.Base.Spawnable;
+using SpaceInvaders.CoreGameplay.Base.SpawnableMovable;
 using SpaceInvaders.Utility;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceInvaders.CoreGameplay.Bullet
 {
-    public class BulletView : MonoBehaviour, ISpawnableView
+    public class BulletView : SpawnableMovableView
     {
-        [SerializeField] private Transform _transform;
         [Inject] private GameplayConfig _gameplayConfig;
         
-        private BulletPresenter _bulletPresenter;
         private UniTaskRestartable _moveTask;
 
-        public Transform Transform => _transform;
-
-        public void Initialize(BulletPresenter bulletPresenter)
+        public override void Initialize(SpawnablePresenter spawnablePresenter)
         {
-            _bulletPresenter = bulletPresenter;
+            base.Initialize(spawnablePresenter);
             _moveTask = new UniTaskRestartable(MoveTask);
         }
         
-        public void AddToPool()
+        public override void OnSpawned(Vector2 position)
         {
-            _bulletPresenter.RequestAddToPool();
-        }
-        
-        public void OnSpawned(Vector2 position)
-        {
-            SetPosition(position);
+            base.OnSpawned(position);
             _moveTask.Restart();
         }
 
-        public void SetPosition(Vector2 position)
+        public override void OnAddedToPool()
         {
-            _transform.localPosition = position;
-        }
-
-        public void OnAddedToPool()
-        {
-            gameObject.SetActive(false);
             _moveTask.Cancel();
         }
 
@@ -49,7 +35,7 @@ namespace SpaceInvaders.CoreGameplay.Bullet
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                _bulletPresenter.RequestDeltaMode(Time.deltaTime);
+                _spawnableMovablePresenter.RequestDeltaMove(Time.deltaTime);
                 await UniTask.Yield(cancellationToken);
             }
         }
@@ -58,7 +44,7 @@ namespace SpaceInvaders.CoreGameplay.Bullet
         {
             if (_gameplayConfig.HasDestructibleTag(collision.gameObject.tag))
             {
-                ISpawnableView spawnableView = collision.gameObject.GetComponent<ISpawnableView>();
+                SpawnableView spawnableView = collision.gameObject.GetComponent<SpawnableView>();
                 spawnableView.AddToPool();
                 AddToPool();
             }

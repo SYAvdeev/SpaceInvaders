@@ -2,7 +2,10 @@
     "name": "SpaceInvaders.CoreGameplay.Base",
     "rootNamespace": "SpaceInvaders.CoreGameplay.Base",
     "references": [
-        "Zenject"
+        "Zenject",
+        "SpaceInvaders.Utility",
+        "SpaceInvaders.AssetsSpawn",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
